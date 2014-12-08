@@ -1,0 +1,20 @@
+import java.io.*;
+
+public class SineCurve{
+    public static void main(String arg[]){
+	for(int i=0;i<30;i++){
+	    double amp=30*Math.sin(Math.PI*i/10)+30;
+	    printGraph((int)(amp+0.5));
+	}
+    }
+    public static int sq(int a){
+	return a*a;
+    }
+    public static void printGraph(int x) {
+	for (int i = 0; i < x; i++) {
+	    System.out.print("*");
+	}
+	System.out.println("");
+    }
+}
+						   

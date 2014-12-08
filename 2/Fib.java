@@ -1,0 +1,29 @@
+import java.io.*;
+
+public class Fib {
+    public static final int MAXNUMBER=512;//現実的な処理限界？
+    public static int[] mFib = new int[512];//メモ
+    public static void main(String[] args) {
+	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	try {
+	    String line = reader.readLine();
+	    int n = Integer.parseInt(line);
+	    //0で初期化
+	    for(int i=1;i<MAXNUMBER;i++){
+		mFib[i]=0;
+	    }
+	    System.out.println(n+"番目のフィボナッチ数は"+fib(n)+"です．");
+	} catch (IOException e) {
+	}
+    }
+
+    public static int fib(int n){
+	  if(n<=0)return 0;
+	  if(n<=2)return 1;//fib(1)=fib(2)=1
+	  //どちらか片方が計算されていなければ、再帰して求める
+	  if(mFib[n-1]==0||mFib[n-2]==0)  mFib[n]=(fib(n-1))+(fib(n-2));
+	  //そうでなければメモから計算
+	  else mFib[n]=(mFib[n-1])+(mFib[n-2]);
+	  return mFib[n];
+    }
+}
