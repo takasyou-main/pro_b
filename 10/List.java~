@@ -1,0 +1,135 @@
+// List.java
+class ListString
+{
+    static int numOfElements = 0;
+    int id;
+    String name;
+    ListString next;
+
+    // Constructor
+    ListString(String name, ListString tail) {
+	this.id = numOfElements;
+	this.name = new String(name); 
+	this.next = tail;
+
+	numOfElements++;
+    }
+
+    static ListString Insert(String s, ListString tail) {
+	return new ListString(s, tail);
+    }
+
+    static void Display(ListString element) {
+	while (element != null) {
+	    System.out.print(element.name+"[" + element.id + "]"+"-->");
+	    element = element.next;
+	}
+	System.out.println("null");
+    }
+
+    // Q1
+    static int length(ListString element) {
+	int result=0;
+	while(element!=null){
+	    result++;
+	    element=element.next;
+	}
+	return result;
+    }
+
+    // Q2
+    static void DisplayReverse(ListString element){
+	if(element.next==null) System.out.print("null");
+	else DisplayReverse(element.next);		
+	System.out.print("<--"+element.name+"["+element.id+"]");
+    }
+
+    // Q3
+    static void Search(String query, ListString head){
+	System.out.print("[Search] ");
+	boolean found=false;
+	while(head!=null){
+	    if(query.equals(head.name)){
+		System.out.println("found: "+head.name+"["+head.id+"]");
+		found=true;
+		break;
+	    }
+	    head=head.next;
+	}
+	if(!found)System.out.println("not found: "+query);
+    }
+
+    // Q4
+    static ListString Delete(String s, ListString head)
+    {
+	if(head==null)return null;
+	if(s.equals(head.name))return head.next;
+	if(head.next==null){
+	    System.out.println("not found: "+s);
+	    return head;
+	}
+	ListString next=head.next;
+	if(s.equals(next.name)){
+	    System.out.println("found");
+	    head.next=next.next;
+	    return head;
+	}else{
+	    System.out.println("call");
+	    head.next=Delete(s,head.next);
+	    return head;
+	}
+    }
+
+    static ListString DeleteDisplay(String string, ListString head)
+    {
+	System.out.println("[Delete] " + string);
+	head = ListString.Delete(string, head); // head
+	ListString.Display(head);
+	System.out.println("#Elements: " + ListString.length(head));
+
+	return head;
+    }
+}
+
+class ListJava 
+{
+    public static void main (String[] args)
+    {
+	ListString head;
+	
+	head = new ListString("Tokyo", null);
+	head = new ListString("Kyoto", head);
+	head = new ListString("Tsukuba", head);
+	head = new ListString("Nara", head);
+	head = new ListString("Ueno", head);
+	head = new ListString("Ehime", head);
+
+	ListString.Display(head);
+
+	// Q1
+	System.out.println("#Elements: " + ListString.length(head));
+	
+
+	// Q2
+	ListString.DisplayReverse(head);
+	System.out.println("");
+	
+
+	// Q3
+	
+	ListString.Search("Kyoto", head);
+	ListString.Search("Fukuoka", head);
+	
+	// Q4
+	
+	head = ListString.DeleteDisplay("Ehime", head);
+	head = ListString.DeleteDisplay("Fukuoka", head);
+	head = ListString.DeleteDisplay("Tokyo", head);
+	head = ListString.DeleteDisplay("Tsukuba", head);
+	head = ListString.DeleteDisplay("Kyoto", head);
+	head = ListString.DeleteDisplay("Nara", head);
+	head = ListString.DeleteDisplay("Ueno", head);
+	head = ListString.DeleteDisplay("Ueno", head);
+	
+    }
+}
