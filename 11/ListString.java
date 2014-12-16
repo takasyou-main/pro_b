@@ -100,25 +100,39 @@ class ListString
 	for(int k=1;k<length(head)&&needNextPass;k++){
 	    needNextPass=false;
 	    for(int i=0;i<length(head)-k;i++){
-		if(i==0)
-		previous=get(head,i-1)
-		now=previous.next;
-		next=now.next;
-		if(now.name.comperTo(now.next.name)){
+		if(i==0){
+		    ListString next=head.next;
+		    if(head.name.compareTo(next.name)>0){
+			ListString tmp=next;
+			head.next=next.next;
+			tmp.next=head;
+			head=tmp;
+			needNextPass=true;
+		    }
+		    continue;
+		}
+		ListString previous=Get(i-1,head);
+		ListString now=previous.next;
+		ListString next=now.next;
+		if(now.name.compareTo(now.next.name)>0){
+		    ListString tmp=next;
 		    now.next=next.next;
-		    previous.next=next;
+		    tmp.next=now;
+		    previous.next=tmp;
 		    needNextPass=true;
 		}
 	    }
 	}
+	return head;
     }
     
 
-    static ListString get(ListString head, int index){
+    static ListString Get(int index,ListString head){
 	if(index!=0){
 	    index--;
-	    return get(head.next,index);
+	    return Get(index,head.next);
 	}
+	return head;
     }
     static ListString DeleteDisplay(String string, ListString head)
     {
