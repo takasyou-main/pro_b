@@ -102,7 +102,7 @@ class ListString
 	    for(int i=0;i<length(head)-k;i++){
 		if(i==0){
 		    ListString next=head.next;
-		    if(head.name.compareTo(next.name)>0){
+		    if(head.name.compareTo(next.name)<0){
 			ListString tmp=next;
 			head.next=next.next;
 			tmp.next=head;
@@ -114,7 +114,7 @@ class ListString
 		ListString previous=Get(i-1,head);
 		ListString now=previous.next;
 		ListString next=now.next;
-		if(now.name.compareTo(now.next.name)>0){
+		if(now.name.compareTo(now.next.name)<0){
 		    ListString tmp=next;
 		    now.next=next.next;
 		    tmp.next=now;
